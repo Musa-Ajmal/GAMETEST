@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style>
+    
+    * {
+    box-sizing: border-box;
+    color: white;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    position: relative;
+    font-family: 'Arial', sans-serif; /* Added a generic font-family */
+}
+
+#start {
+    margin-left: 45%;
+    height: 30px;
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    width: 200px;
+}
+
+#mid-line {
+    width: 100%;
+    border: 2px solid tomato;
+}
+
+#top-container {
+    width: 100%;
+    height: 300px;
+    border: 1px solid tomato;
+    display: flex;
+    justify-content: space-between;
+}
+
+#bottom-container {
+    width: 100%;
+    height: 300px;
+    border: 1px solid tomato;
+    display: flex;
+    justify-content: space-between;
+}
+
+#top-main,
+#bottom-main {
+    width: 1000px;
+    height: 300px;
+    border: 1px solid black;
+    position: relative;
+}
+
+#top-left,
+#bottom-left {
+    border: 1px solid tomato;
+    width: 400px;
+    height: 300px;
+    margin-top: 20px;
+}
+
+#p2-pokname,
+#p1-pokname,
+.para {
+    text-align: center; /* Center text for better readability on smaller screens */
+    margin-left: 0; /* Reset margin for smaller screens */
+}
+
+#top-left p,
+#bottom-left p {
+    margin-top: 5px; /* Adjust margin for better spacing on smaller screens */
+}
+
+#top-main p,
+#bottom-main p {
+    margin-left: 15%; /* Adjust margin for better spacing on smaller screens */
+}
+
+#top-left button,
+#bottom-left button {
+    width: 100%; /* Adjust width for smaller screens */
+    margin-left: 0; /* Reset margin for smaller screens */
+    margin-top: 10px;
+}
+
+.move1,
+.move2,
+.move3,
+.move4 {
+    width: 100%; /* Adjust width for smaller screens */
+    margin-left: 0; /* Reset margin for smaller screens */
+    margin-top: 10px;
+}
+
+button[disabled] {
+    cursor: not-allowed;
+}
+
+#p1-healthbar,
+#p2-healthbar {
+    width: 205px;
+    background-color: rgb(18, 207, 18);
+    color: white;
+    border-radius: 5px;
+    transition: 2s width ease;
+}
+
+#p1-hbar,
+#p2-hbar {
+    transition: width 2s ease;
+}
+
+@media only screen and (max-width: 768px) {
+    #start {
+        margin-left: 35%; /* Adjust the margin for smaller screens */
+    }
+
+    #top-container,
+    #bottom-container {
+        flex-direction: column; /* Change to a column layout for smaller screens */
+        height: auto; /* Adjust height for smaller screens */
+    }
+
+    #top-main,
+    #bottom-main {
+        width: 100%; /* Adjust width for smaller screens */
+    }
+
+    #top-left,
+    #bottom-left {
+        width: 100%; /* Adjust width for smaller screens */
+        margin-top: 20px; /* Add margin for better spacing on smaller screens */
+    }
+
+    .move1,
+    .move2,
+    .move3,
+    .move4 {
+        width: 100%; /* Adjust width for smaller screens */
+        margin-left: 0; /* Reset margin for smaller screens */
+        margin-top: 10px;
+    }
+
+    #p2-pokname,
+    #p1-pokname,
+    .para {
+        text-align: center; /* Center text for better readability on smaller screens */
+        margin-left: 0; /* Reset margin for smaller screens */
+    }
+
+    #mid-line {
+        text-align: center; /* Center the button for better readability on smaller screens */
+    }
+}
+
+
+    
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div id="top-container">
+        <div id="top-main">
+            <p id="p2-pokname" class="pokemon-name">Name</p>
+         <div id ="p2-health"><div id="p2-healthbar" class="health-bar">Health</div></div>
+            <div id="p2-entity">
+          <img id="p2-pokemon" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fclipart-library.com%2Fpikachu-cliparts.html&psig=AOvVaw2nLW7l4cgWAZK0k50tKrUQ&ust=1693215360490000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCPiSpPHE_IADFQAAAAAdAAAAABAE"  alt="POKEMON">
+            </div>
+            <div id="p2-textcontainer">dont look</div>
+        </div>
+    <div id="top-left">
+        <p class="para">Choose a Move</p>
+        <button id="player2-move1" class="move1" onclick="player2dealdamage(this)" disabled>move1</button>
+        <button  id="player2-move2" class="move2" onclick="player2dealdamage(this)" disabled>move2</button>
+        <button   id="player2-move3" class="move3"  onclick="player2dealdamage(this)" disabled>move3</button>
+        <button  id="player2-move4" class="move4" onclick="player2dealdamage(this)" disabled>move4</button></div>
+    </div>
+    
+
+    <div id="mid-line">
+        <button id="start" onclick="startGame()">Start Game</button>
+    </div>
+    <div id="bottom-container">
+    <div id="bottom-main">
+     <p id="p1-pokname" class="pokemon-name">Name</p>
+     <div id="p1-health"><div id="p1-healthbar" class="health-bar">Health</div></div>
+    <div id="p1-entity">
+        <img id="p1-pokemon" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.giantbomb.com%2Fcharizard%2F3015-1023%2Fimages%2F&psig=AOvVaw22cWb6hSRkGpL0IHZpDWO4&ust=1693215616759000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCLiDx-vF_IADFQAAAAAdAAAAABAE" alt="POKEMON">
+    </div>
+  <div id="p1-textcontainer">dont look behind</div>
+</div>
+    <div id="bottom-left">
+        <p class="para">Choose a Move</p>
+        <button id="player1-move1" class="move1" onclick="player1dealdamage(this)" disabled>move1</button>
+        <button  id="player1-move2" class="move2" onclick="player1dealdamage(this)" disabled>move2</button>
+        <button   id="player1-move3" class="move3" onclick="player1dealdamage(this)" disabled>move3</button>
+        <button  id="player1-move4" class="move4" onclick="player1dealdamage(this)" disabled>move4</button>
+    </div>
+    </div>
+    <script>
+        class Pokemon{
+    constructor(name,hitpoints,elementalType1,elementalType2,moves,selectedMove,speedStat,isfainted,image)
+    {
+        this.name=name
+        this.hitpoints=hitpoints
+        this.elementalType1=elementalType1
+        this.elementalType2=elementalType2
+        this.moves=moves.map(move=>new Moves(move.moveName,move.damage,move.elementalType,move.powerPoints,move.priority))
+        this.selectedMove=selectedMove
+        this.speedStat=speedStat
+        this.isfainted=isfainted
+        this.image=image
+    }
+}
+class Moves{
+    constructor(moveName,damage,elementalType,powerPoints,priority)
+    {
+        this.moveName=moveName
+        this.damage=damage
+        this.elementalType=elementalType
+        this.powerPoints=powerPoints
+        this.priority=priority
+    }
+}
+ class Player{
+    constructor(name,pokemons,selectedPokemon,turn,won){
+        this.name=name
+       this.pokemons=pokemons
+       this.selectedPokemon=selectedPokemon
+      
+       this.turn=turn
+       this.won=won
+       
+    }
+   
+ }
+ 
+  let Tm13=new Moves("Ice Beam",90,"Ice",10,0)
+  let Hm03=new Moves("Surf",95,"Water",15,0)
+  let Tm25=new Moves("Earthquake",100,"Ground",10,0)
+  let Tm34=new Moves("FlameThrower",90,"Fire",15,0)
+  let Tm30=new Moves("Shadow Ball",90,"Ghost",10,0)
+  let Tm29=new Moves("Psychic",90,"Psychic",10,0)
+  let Tm40=new Moves("Aerial Ace",60,"Flying",20,0)
+  let Tm24=new Moves("Thunderbolt",90,"Electric",15,0)
+  let Tm90=new Moves("Dark Pulse",80,"Dark",20,0)
+  let Tm56=new Moves("Energy Ball",90,"Grass",20,0)
+  let Tm66=new Moves("Bug Buzz",90,"Bug",10,0)
+  let Tm36=new Moves("Sludge Bomb",90,"Poison",10,0)
+  let Tm31=new Moves("Brick Break",80,"Fighting",20,0)
+  let Tm98=new Moves("Flash Canon",90,"Steel",20,0)
+  let Tm100=new Moves("Stone-Edge",100,"Rock",5,0)
+  let Tm50=new Moves("Dragon Claw",90,"Dragon",20,0)
+  let fairyMove=new Moves("Spirit Break",80,"Fairy",15,0)
+  let normalMove=new Moves("Quick Attack",40,"Normal",40,1)
+  let charimage=new Image()
+  charimage.src="Charizard.jpg"
+  let galladeimage=new Image()
+  galladeimage.src="gallade.jpg"
+  let pikachuimage=new Image()
+  pikachuimage.src="pikachu.png"
+
+
+  let pokemon1=new Pokemon("Charizard",400,"Fire","Flying",[Tm34,Tm40,Tm31,Tm50],"",85,false,charimage)
+  let pokemon2=new Pokemon("Pikachu",350,"Electric","",[Tm24,Tm98,normalMove,Tm40],"",90,false,pikachuimage)
+  let pokemon3=new Pokemon("Gallade",400,"Psychic","Fighting",[Tm29,Tm31,Tm90,Tm100],"",75,false,galladeimage)
+
+
+  let player1=new Player("player1",pokemon1,null,0,false)
+  let player2=new Player("player2",pokemon3,null,0,false)
+let p2n=document.getElementById("p2-pokname")
+let p2h=document.getElementById("p2-health")
+let p2hbar=document.getElementById("p2-healthbar")
+let p2e=document.getElementById("p2-entity")
+let p2image=document.getElementById("p2-pokemon")
+let p2t=document.getElementById("p2-textcontainer")
+let p1n=document.getElementById("p1-pokname")
+let p1h=document.getElementById("p1-health")
+let p1hbar=document.getElementById("p1-healthbar")
+let p1e=document.getElementById("p1-entity")
+let p1image=document.getElementById("p1-pokemon")
+let p1t=document.getElementById("p1-textcontainer")
+let player1Move1=document.getElementById("player1-move1")
+let player1Move2=document.getElementById("player1-move2")
+let player1Move3=document.getElementById("player1-move3")
+let player1Move4=document.getElementById("player1-move4")
+let player1moves=[player1Move1,player1Move2,player1Move3,player1Move4]
+let player2Move1=document.getElementById("player2-move1")
+let player2Move2=document.getElementById("player2-move2")
+let player2Move3=document.getElementById("player2-move3")
+let player2Move4=document.getElementById("player2-move4")
+let player2moves=[player2Move1,player2Move2,player2Move3,player2Move4]
+let MOVES=[player1moves,player2moves]
+let button=document.getElementById("start")
+let para=document.createElement("p")
+let som=document.querySelectorAll(".para")
+let midline=document.getElementById("mid-line")
+
+let elements=[p2n,p2h,p2e,p2t,p1n,p1h,p1e,p1t]
+for(let element of elements)
+{
+    element.style.visibility="hidden"
+}
+for(let move of player1moves)
+{
+    move.style.visibility="hidden"
+}
+for (let move of player2moves)
+{
+    move.style.visibility="hidden"
+}
+som.forEach(element=>{
+    element.style.visibility="hidden"
+})
+
+function startGame()
+{ 
+    button.style.visibility="hidden"
+    player1.selectedPokemon=pokemon1
+    p1n.textContent=player1.selectedPokemon.name
+    p1hbar.textContent=player1.selectedPokemon.hitpoints
+    //p1image.src=player1.selectedPokemon.image.src
+    player2.selectedPokemon=pokemon3
+    p2n.textContent=player2.selectedPokemon.name
+    p2hbar.textContent=player2.selectedPokemon.hitpoints
+   // p2image.src=player2.selectedPokemon.image.src
+    for(let element of elements)
+        {
+            element.style.visibility="visible"
+        }
+        for(let move of player1moves)
+        {
+            move.style.visibility="visible"
+        }
+        for(let move of player2moves)
+        {
+            move.style.visibility="visible"
+        }
+        som.forEach(element=>{
+            element.style.visibility="visible"
+        })
+
+    checkwhosturnisit(player1,player2)
+    
+}
+function player1dealdamage(butt)
+ {
+    if(butt.id==="player1-move1")
+    {
+        player1Move2.disabled=true
+        player1Move3.disabled=true
+        player1Move4.disabled=true
+        player1.selectedPokemon.choosenMove=player1.selectedPokemon.moves[0]
+        p1t.textContent=player1.selectedPokemon.name+" "+"used"+" "+player1.selectedPokemon.choosenMove.moveName
+      
+        p2hbar.style.width=p2hbar.getBoundingClientRect().width-(player1.selectedPokemon.choosenMove.damage/2)+"px"
+        player2.selectedPokemon.hitpoints=player2.selectedPokemon.hitpoints-player1.selectedPokemon.choosenMove.damage
+        p2hbar.textContent=player2.selectedPokemon.hitpoints
+       if(parseInt(p2hbar.textContent)<=0)
+       {
+        p2hbar.textContent="0"
+        player1.won=true
+        won(player1,player2)
+       }
+
+    }
+    else if(butt.id==="player1-move2")
+    {
+        player1Move1.disabled=true
+        player1Move3.disabled=true
+        player1Move4.disabled=true
+        player1.selectedPokemon.choosenMove=player1.selectedPokemon.moves[1]
+        p1t.textContent=player1.selectedPokemon.name+" "+"used"+" "+player1.selectedPokemon.choosenMove.moveName
+       
+        p2hbar.style.width=p2hbar.getBoundingClientRect().width-(player1.selectedPokemon.choosenMove.damage/2)+"px"
+        player2.selectedPokemon.hitpoints=player2.selectedPokemon.hitpoints-player1.selectedPokemon.choosenMove.damage
+        p2hbar.textContent=player2.selectedPokemon.hitpoints
+       if(parseInt(p2hbar.textContent)<=0)
+       {
+        p2hbar.textContent="0"
+        player1.won=true
+        won(player1,player2)
+       }
+   
+    }
+    else if(butt.id==="player1-move3")
+    {
+        player1Move1.disabled=true
+        player1Move2.disabled=true
+        player1Move4.disabled=true
+        player1.selectedPokemon.choosenMove=player1.selectedPokemon.moves[2]
+        p1t.textContent=player1.selectedPokemon.name+" "+"used"+" "+player1.selectedPokemon.choosenMove.moveName
+        
+        p2hbar.style.width=p2hbar.getBoundingClientRect().width-(player1.selectedPokemon.choosenMove.damage/2)+"px"
+        player2.selectedPokemon.hitpoints=player2.selectedPokemon.hitpoints-player1.selectedPokemon.choosenMove.damage
+        p2hbar.textContent=player2.selectedPokemon.hitpoints
+       if(parseInt(p2hbar.textContent)<=0)
+       {
+        p2hbar.textContent="0"
+        player1.won=true
+        won(player1,player2)
+       }
+
+    }
+    else if(butt.id==="player1-move4")
+    {
+        player1Move1.disabled=true
+        player1Move2.disabled=true
+        player1Move3.disabled=true
+        player1.selectedPokemon.choosenMove=player1.selectedPokemon.moves[3]
+        p1t.textContent=player1.selectedPokemon.name+" "+"used"+" "+player1.selectedPokemon.choosenMove.moveName
+   
+        p2hbar.style.width=p2hbar.getBoundingClientRect().width-(player1.selectedPokemon.choosenMove.damage/2)+"px"
+        player2.selectedPokemon.hitpoints=player2.selectedPokemon.hitpoints-player1.selectedPokemon.choosenMove.damage
+        p2hbar.textContent=player2.selectedPokemon.hitpoints
+       if(parseInt(p2hbar.textContent)<=0)
+       {
+        p2hbar.textContent="0"
+        player1.won=true
+        won(player1,player2)
+       }
+
+    }
+    player1.turn=0
+    player2.turn=1
+    checkwhosturnisit(player1,player2)
+ }
+ function player2dealdamage(butt)
+ {
+    if(butt.id==="player2-move1")
+    {
+        player2Move2.disabled=true
+        player2Move3.disabled=true
+        player2Move4.disabled=true
+        player2.selectedPokemon.choosenMove=player2.selectedPokemon.moves[0]
+        p2t.textContent=player2.selectedPokemon.name+" "+"used"+" "+player2.selectedPokemon.choosenMove.moveName
+       
+        p1hbar.style.width=p1hbar.getBoundingClientRect().width-(player2.selectedPokemon.choosenMove.damage/2)+"px"
+        player1.selectedPokemon.hitpoints=player1.selectedPokemon.hitpoints-player2.selectedPokemon.choosenMove.damage
+        p1hbar.textContent=player1.selectedPokemon.hitpoints
+       if(parseInt(p1hbar.textContent)<=0)
+       {
+        p1hbar.textContent="0"
+        player2.won=true
+        won(player1,player2)
+       }
+
+    }
+    else if(butt.id==="player2-move2")
+    {
+        player2Move1.disabled=true
+        player2Move3.disabled=true
+        player2Move4.disabled=true
+        player2.selectedPokemon.choosenMove=player2.selectedPokemon.moves[1]
+        p2t.textContent=player2.selectedPokemon.name+" "+"used"+" "+player2.selectedPokemon.choosenMove.moveName
+       
+        p1hbar.style.width=p1hbar.getBoundingClientRect().width-(player2.selectedPokemon.choosenMove.damage/2)+"px"
+        player1.selectedPokemon.hitpoints=player1.selectedPokemon.hitpoints-player2.selectedPokemon.choosenMove.damage
+        p1hbar.textContent=player1.selectedPokemon.hitpoints
+       if(parseInt(p1hbar.textContent)<=0)
+       {
+        p1hbar.textContent="0"
+        player2.won=true
+        won(player1,player2)
+       }
+    }
+    else if(butt.id==="player2-move3")
+    {
+        
+        player2Move1.disabled=true
+        player2Move2.disabled=true
+        player2Move4.disabled=true
+        player2.selectedPokemon.choosenMove=player2.selectedPokemon.moves[2]
+        p2t.textContent=player2.selectedPokemon.name+" "+"used"+" "+player2.selectedPokemon.choosenMove.moveName
+        
+        p1hbar.style.width=p1hbar.getBoundingClientRect().width-(player2.selectedPokemon.choosenMove.damage/2)+"px"
+        player1.selectedPokemon.hitpoints=player1.selectedPokemon.hitpoints-player2.selectedPokemon.choosenMove.damage
+        p1hbar.textContent=player1.selectedPokemon.hitpoints
+       if(parseInt(p1hbar.textContent)<=0)
+       {
+        p1hbar.textContent="0"
+        player2.won=true
+        won(player1,player2)
+       }
+    }
+    else if(butt.id==="player2-move4")
+    {
+        
+        player2Move1.disabled=true
+        player2Move2.disabled=true
+        player2Move3.disabled=true
+        player2.selectedPokemon.choosenMove=player2.selectedPokemon.moves[3]
+        p2t.textContent=player2.selectedPokemon.name+" "+"used"+" "+player2.selectedPokemon.choosenMove.moveName
+         
+       
+        p1hbar.style.width=p1hbar.getBoundingClientRect().width-(player2.selectedPokemon.choosenMove.damage/2)+"px"
+        player1.selectedPokemon.hitpoints=player1.selectedPokemon.hitpoints-player2.selectedPokemon.choosenMove.damage
+        p1hbar.textContent=player1.selectedPokemon.hitpoints
+       if(parseInt(p1hbar.textContent)<=0)
+       {
+        p1hbar.textContent="0"
+        player2.won=true
+        won(player1,player2)
+       }
+    }
+    player2.turn=0
+    player1.turn=1
+  checkwhosturnisit(player1,player2)
+ }
+function checkwhosturnisit(player1,player2)
+{
+    if(player1.turn===1)
+    {
+    player1.turn=0
+    setTimeout(()=>{
+        p1t.textContent="Player 1s turn"
+    },2000)
+    setTimeout(()=>{
+        p2t.textContent="Waiting for turn..."
+    },2000)
+    
+   
+    player1Move1.innerText=player1.selectedPokemon.moves[0].moveName
+    player1Move2.innerText=player1.selectedPokemon.moves[1].moveName
+    player1Move3.innerText=player1.selectedPokemon.moves[2].moveName
+    player1Move4.innerText=player1.selectedPokemon.moves[3].moveName
+    console.log(player1.selectedPokemon.moves[0].moveName)
+    for(let move1 of player1moves)
+    {
+        move1.disabled=false
+    }
+    for(let move1 of player2moves)
+    {
+        move1.disabled=true
+    }
+}
+    
+  
+    
+else{
+    player2.turn=1
+
+    setTimeout(()=>{
+        p2t.textContent="Player 2s turn"
+    },2000)
+    setTimeout(()=>{
+        p1t.textContent="Waiting for turn...."
+    },2000)
+    
+    player2Move1.innerText=player2.selectedPokemon.moves[0].moveName
+    player2Move2.innerText=player2.selectedPokemon.moves[1].moveName
+    player2Move3.innerText=player2.selectedPokemon.moves[2].moveName
+    player2Move4.innerText=player2.selectedPokemon.moves[3].moveName
+    
+    for(let move2 of player2moves)
+    {
+        move2.disabled=false
+    }
+    for(let move2 of player1moves)
+    {
+        move2.disabled=true
+    }
+
+}
+}
+function won(player1,player2)
+{
+    if(player2.won)
+    {
+        button.style.visibility="hidden"
+        for(element of elements)
+        {
+            element.style.visibility="hidden"
+        }
+       for( let move of player1moves)
+       {
+        move.style.visibility="hidden"
+       }
+       for(let move of player2moves)
+       {
+        move.style.visibility="hidden"
+       }
+       som.forEach(element=>{
+        element.style.visibility="hidden"
+       })
+        midline.style.visibility="hidden"
+        let all=document.querySelectorAll("*")
+        all.forEach(element=>{
+            element.style.border="none"
+        })
+        
+     
+        para.setAttribute("id","winning-text")
+        para.innerText="PLAYER 2 IS THE WINNER !!!!"
+        document.body.appendChild(para)
+    }
+    else{
+        button.style.visibility="hidden"
+        for(element of elements)
+        {
+            element.style.visibility="hidden"
+        }
+        for( let move of player1moves)
+        {
+         move.style.visibility="hidden"
+        }
+        for(let move of player2moves)
+        {
+         move.style.visibility="hidden"
+        }
+        midline.style.visibility="hidden"
+        let all=document.querySelectorAll("*")
+        all.forEach(element=>{
+            element.style.border="none"
+        })
+         
+      
+        para.setAttribute("id","winning-text")
+        para.innerText="PLAYER 1 IS THE WINNER !!!!"
+        document.body.appendChild(para)
+    }
+}
+
+    </script>
+</body>
+</html>
